@@ -1,11 +1,22 @@
 import { Component } from '@angular/core';
+import {v4} from 'uuid';
 
-interface Book {
+class Book {
+  id: string
   bookName: string
   authorName: string
-  year: number
-}
+  year: number|null
+  constructor(bookName: string, authorName: string, year: number|null) {
+        this.id = v4()
+        this.bookName = bookName;
+        this.authorName = authorName;
+        this.year = year;
+    }
 
+  // bookName: string
+  // authorName: string
+  // year: number|null
+}
 
 @Component({
   selector: 'app-home',
@@ -16,8 +27,28 @@ interface Book {
 export class HomePage {
 
   constructor() {}
+
+  bookname: string = ""
+  authorName: string = ""
+  year: number|null = null
+
   myname: string = "Timonin"
   todo: string[] = ["Помыть кота", "Помыть собаку", "Помыть мышь"]
-  books: Book[] = [{bookName: "JoJo", authorName: "JoJo", year: 10}]
-  btnClick(){this.myname = this.myname + "!"}
+  books: Book[] = [new Book("JoJo", "JoJo", 10)]
+  btnClick(){this.books.push(new Book(this.bookname,this.authorName,this.year))}
+  doubleBtnClick(){this.myname = "admin"}
+  delete(id: string){
+    this.books = this.books.filter((el) => el.id != id)
+  }
+
+  // newBook: Book = {
+  // bookName: "",
+  // authorName: "",
+  // year: null}
 }
+
+var z;
+
+
+
+
